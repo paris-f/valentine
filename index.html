@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Valentine?</title>
+  <style>
+    :root { font-family: system-ui, Arial, sans-serif; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+      padding: 24px;
+      background-image: url(index.jpeg);
+      background-position: 100%;
+    }
+    .card {
+      width: min(420px, 100%);
+      background: rgba(255,255,255,0.9);
+      border-radius: 24px;
+      padding: 28px 22px;
+      text-align: center;
+      box-shadow: 0 14px 40px rgba(0,0,0,0.12);
+      position: relative;
+      overflow: hidden;
+    }
+    h1 { margin: 0 0 10px; font-size: 28px; }
+    p { margin: 0 0 18px; opacity: 0.85; }
+    .btns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 10px;
+    }
+    button {
+      border: 0;
+      border-radius: 16px;
+      padding: 14px 14px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+    #yes {
+      background: #ff2d55;
+      color: white;
+    }
+    #no {
+      background: #111;
+      color: white;
+      position: relative;
+    }
+    .result {
+      margin-top: 16px;
+      font-size: 18px;
+      font-weight: 700;
+      min-height: 28px;
+    }
+    .tiny {
+      margin-top: 10px;
+      font-size: 12px;
+      opacity: 0.65;
+    }
+  </style>
+</head>
+<body>
+    
+  <div class="card" id="card">
+    <h2>Will you be my Valentine, Thuba?</h2>
+    <p>Be honest… I already know the answer😌</p>
+
+    <div class="btns">
+      <button id="yes">Yes 💖</button>
+      <button id="no">No!</button>
+    </div>
+
+    <div class="result" id="result"></div>
+    <div class="tiny"><b>Tip: tap "No" if you dare 👀</b></div>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("no");
+    const yesBtn = document.getElementById("yes");
+    const card = document.getElementById("card");
+    const result = document.getElementById("result");
+
+    function moveNoButton() {
+      const cardRect = card.getBoundingClientRect();
+      const btnRect = noBtn.getBoundingClientRect();
+
+      // move within the card bounds
+      const maxX = cardRect.width - btnRect.width - 24;
+      const maxY = cardRect.height - btnRect.height - 24;
+
+      const x = Math.max(8, Math.floor(Math.random() * maxX));
+      const y = Math.max(8, Math.floor(Math.random() * maxY));
+
+      noBtn.style.position = "absolute";
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+    }
+
+    // Mobile friendly: use pointer events so it works for touch + mouse
+    noBtn.addEventListener("pointerdown", moveNoButton);
+    noBtn.addEventListener("pointerenter", moveNoButton);
+
+    yesBtn.addEventListener("click", () => {
+      result.textContent = "Kade ngabona ukuthi uyang'funa wena😌";
+      // Make it feel final
+      yesBtn.disabled = true;
+      noBtn.disabled = true;
+      yesBtn.style.opacity = 0.85;
+      noBtn.style.opacity = 0.6;
+    });
+  </script>
+</body>
+</html>
